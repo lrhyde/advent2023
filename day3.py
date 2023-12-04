@@ -3,6 +3,9 @@ matrix = []
 nums = "0123456789"
 symbols = "/\\/?<>;~^&(*):*#=%&@!$-+="
 sum = 0
+numslist = []
+numsCoords = []
+asteriskIndices = []
 for line in infile:
     matrix.append(line.strip())
 for lineIndex in range(len(matrix)):
@@ -16,16 +19,34 @@ for lineIndex in range(len(matrix)):
                 if(index+1<len(line) and line[index+1] in nums):
                     lastIndex = index+1
                     index+=1
-            #check all the indices surrounding the first and last indexes
-            adjacent = False
+            numslist.append((lineIndex, firstIndex, lastIndex))
+            numsCoords.append((lineIndex, firstIndex))
+            numsCoords.append((lineIndex, lastIndex))
             for y in range(max(0, lineIndex-1), min(len(matrix), lineIndex+2)):
                 for x in range(max(0, firstIndex-1), min(len(line), lastIndex+2)):
                     if(matrix[y][x] in symbols):
                         adjacent = True
-            if(adjacent):
-                if(firstIndex!=lastIndex):
-                    sum+=int(matrix[lineIndex][firstIndex:lastIndex+1])
-                else:
-                    sum+=int(matrix[lineIndex][index])
+        if(line[index] == "*"):
+            asteriskIndices.append((lineIndex, index))
         index+=1
+print(len(asteriskIndices))
+print(len(numsCoords))
+print(len(numslist))
+for asterisk in asteriskIndices:
+    numbers = []
+    for y in range (max(0, asterisk[0]-1), min(len(matrix), asterisk[0]+2)):
+        for x in range(max(0, asterisk[1]-1), min(len(matrix[y]), asterisk[1]+2)):
+            if((y, x) in numsCoords):
+                print((y, x))
+                ind = numsCoords.index((y, x))
+                number1 = 0
+                if(ind%2==1):
+                    number = numslist[int((ind-1)/2)]
+                else:
+                    number = numslist[int(ind/2)]
+                if(number not in numbers):
+                    numbers.append(number)
+    print(len(numbers))
+    if(len(numbers)==2):
+        sum+=int(matrix[numbers[0][0]][numbers[0][1]:numbers[0][2]+1])*int(matrix[numbers[1][0]][numbers[1][1]:numbers[1][2]+1])
 print(sum)
