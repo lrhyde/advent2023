@@ -19,9 +19,9 @@ for line_full in infile:
     totalNums = actualNums + winningNums
     totalSet = set(totalNums)
     points[lineNum] = len(totalNums)-len(totalSet)
-for i in range(1, 203):
+for i in range(1, len(points)+1):
     for j in range(i+1, i+1+points[i]):
         copies[j]+=copies[i]
-for i in range(1, 203):
+for i in range(1, len(points)+1):
     sum+=copies[i]
 print(sum)
