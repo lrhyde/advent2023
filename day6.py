@@ -5,13 +5,19 @@ def parseNumList(numList):
         if(num!=""): 
             newList.append(int(num))
     return newList
-timeList = []
-distList = []
+def parseStrList(numList):
+    newList = ""
+    for num in numList:
+        if(num!=""): 
+            newList+=num
+    return newList
+timeList = [[]]
+distList = [[]]
 for line in infile:
     if(line[0]=="T"):
-        timeList= parseNumList(line.split(" ")[1:])
+        timeList[0]= int(parseStrList(line.split(" ")[1:]))
     if(line[0]=="D"):
-        distList  = parseNumList(line.split(" ")[1:])
+        distList[0]  = int(parseStrList(line.split(" ")[1:]))
 successes = []
 for i in range(len(timeList)):
     successes.append(0)
