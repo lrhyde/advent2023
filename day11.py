@@ -20,7 +20,7 @@ blankCols = [i for i in range(numCols) if blankCols[i]]
 s = 0
 for i in range(len(galaxies)):
     for j in range(i+1, len(galaxies)):
-        inTheWay = sum([1 for b in blankCols if (b>min(galaxies[i][1], galaxies[j][1]) and b<max(galaxies[i][1], galaxies[j][1]))])
-        inTheWay+=sum([1 for b in blankRows if (b>min(galaxies[i][0], galaxies[j][0]) and b<max(galaxies[i][0], galaxies[j][0]))])
+        inTheWay = (1000000-1)*sum([1 for b in blankCols if (b>min(galaxies[i][1], galaxies[j][1]) and b<max(galaxies[i][1], galaxies[j][1]))])
+        inTheWay+=(1000000-1)*sum([1 for b in blankRows if (b>min(galaxies[i][0], galaxies[j][0]) and b<max(galaxies[i][0], galaxies[j][0]))])
         s+=inTheWay+abs(galaxies[i][0]-galaxies[j][0]) + abs(galaxies[i][1]-galaxies[j][1])
 print(s)
