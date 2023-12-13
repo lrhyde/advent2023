@@ -17,7 +17,7 @@ def extrapolate(sequence):
     prevDiff = 0
     for i in range(len(differences)):
         iReverse = len(differences)-i-1
-        value = differences[iReverse][len(differences[iReverse])-1] + prevDiff
+        value = differences[iReverse][0] - prevDiff
         prevDiff = value
     return value
 for line in infile:
